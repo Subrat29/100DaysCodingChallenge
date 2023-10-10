@@ -42,8 +42,8 @@ bool exist(vector<vector<char>> &board, string word)
                 return true;
             }
         }
-        return false;
     }
+    return false;
 }
 
 int main()
