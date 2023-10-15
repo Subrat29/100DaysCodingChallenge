@@ -33,7 +33,9 @@ class RandomizedCollection
             nums[m[val].back()] = last;
             m[val].pop_back();
             if (m[val].empty())
+            {
                 m.erase(val);
+            }
             nums.pop_back();
         }
         return result;
