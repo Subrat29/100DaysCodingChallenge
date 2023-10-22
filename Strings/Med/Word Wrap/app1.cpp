@@ -4,6 +4,8 @@
 #include <limits.h>
 using namespace std;
 
+// try but ye hua nhi h first time ...uff
+
 // Function to find the minimum cost of word wrapping.
 int solveWordWrap(vector<int> nums, int k)
 {
@@ -31,13 +33,19 @@ int solveWordWrap(vector<int> nums, int k)
 
             // If current line length exceeds the limit, break.
             if (currlen > k)
+            {
                 break;
+            }
 
             // Calculating cost for current wrapping.
             if (j == n - 1)
+            {
                 cost = 0;
+            }
             else
+            {
                 cost = (k - currlen) * (k - currlen) + dp[j + 1];
+            }
 
             // Updating dp and ans vectors.
             if (cost < dp[i])
@@ -64,7 +72,9 @@ int solveWordWrap(vector<int> nums, int k)
         // Calculating cost of extra spaces.
         int x = ans[i] - i;
         if (ans[i] + 1 != nums.size())
+        {
             res += (k - x - pos) * (k - x - pos);
+        }
 
         // Updating i to next line wrapping.
         i = ans[i] + 1;
