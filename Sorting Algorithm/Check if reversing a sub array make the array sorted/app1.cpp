@@ -37,7 +37,7 @@ bool checkReverse(vector<int> arr, int n)
             return false;
         }
     } while (front != back);
-    return false;
+    return true;
 }
 
 int main() 
