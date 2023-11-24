@@ -4,12 +4,12 @@
 #include <stack>
 using namespace std;
 
-class MyQueue
+class MyStack
 {
     stack<int> input;
     stack<int> output;
     
-    MyQueue()
+    MyStack()
     {
     }
 
