@@ -49,6 +49,7 @@
         "regex": "cpp",
         "forward_list": "cpp",
         "bitset": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "chrono": "cpp"
     }
 }
