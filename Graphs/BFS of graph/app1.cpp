@@ -6,30 +6,37 @@ using namespace std;
 
 vector<int> bfsOfGraph(int V, vector<int> adj[])
 {
+    // step1: create a visited vector
     vector<bool> vis(V, false);
+
+    // step2: assume a node eg. 0 & mark it to true;
     int s = 0;
     vis[s] = true;
 
-    vector<int> res;
+    // step3: create a queue & put that node in queue
     queue<int> q;
     q.push(s);
 
+    // step: create a ans vector to store nodes
+    vector<int> ans;
+
     while (!q.empty())
     {
-        int t = q.front();
-        res.push_back(t);
+        int node = q.front();
         q.pop();
+        ans.push_back(node);
 
-        for (int v : adj[t])
+        // step4: find all neighbours of node & put in queue if it is not visited and mark true
+        for (int neighbour : adj[node]) // **confuse here** it traverse all neighbours of 0 -> {1,2,3}
         {
-            if (!vis[v])
+            if (!vis[neighbour])
             {
-                vis[v] = true;
-                q.push(v);
+                vis[neighbour] = true;
+                q.push(neighbour);
             }
         }
     }
-    return res;
+    return ans;
 }
 
 int main()
