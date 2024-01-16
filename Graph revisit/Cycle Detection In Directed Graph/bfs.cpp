@@ -20,7 +20,7 @@ int detectCycleInDirectedGraph(int n, vector<pair<int, int>> &edges)
     }
 
     queue<int> q;
-    for (int i = 0; i <= n; i++)
+    for (int i = 1; i <= n; i++)
     {
         if (indegree[i] == 0)
             q.push(i);
@@ -40,7 +40,10 @@ int detectCycleInDirectedGraph(int n, vector<pair<int, int>> &edges)
                 q.push(neighbour);
         }
     }
-    return cnt == n;
+    if (cnt == n)
+        return false;
+    else
+        return true;
 }
 
 int main()
