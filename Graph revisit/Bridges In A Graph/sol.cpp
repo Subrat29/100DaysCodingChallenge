@@ -14,7 +14,7 @@ void dfs(int node, int parent, int time, vector<bool> &visited, vector<int> &dis
         if (!visited[neighbour])
         {
             dfs(neighbour, node, time + 1, visited, discoveryTime, lowestPossibleTime, adj, ans);
-            
+
             // check bridge
             if (lowestPossibleTime[neighbour] > discoveryTime[node])
                 ans.push_back({node, neighbour});
@@ -54,7 +54,8 @@ vector<vector<int>> findBridges(vector<vector<int>> &edges, int v, int e)
     vector<vector<int>> ans;
     for (int i = 0; i < v; i++)
     {
-        dfs(i, -1, 0, visited, discoveryTime, lowestPossibleTime, adj, ans);
+        if (!visited[i])
+            dfs(i, -1, 0, visited, discoveryTime, lowestPossibleTime, adj, ans);
     }
     return ans;
 }
