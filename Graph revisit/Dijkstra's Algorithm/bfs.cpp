@@ -44,7 +44,7 @@ vector<int> dijkstra(vector<vector<int>> &vec, int n, int edges, int source)
     return dist;
 }
 
-// SET PROPERTY:
+// PRIORITY QUEUE PROPERTY:
 // the sorting is done lexicographically. This means that the first element of the pair is the primary key
 // for sorting, and if two pairs have the same first element, then the second element is used for further
 // comparison.
