@@ -1,86 +1,64 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <algorithm>
 using namespace std;
 
-// Function that creates transpose of the adjacency list.
-void transpose(int V, vector<vector<int>> &adj, vector<int> transpose_adj[])
+void dfs1(int node, vector<bool> &vis, vector<vector<int>> &adj, stack<int> &s)
 {
-    for (int u = 0; u < V; u++)
-        for (auto v : adj[u])
-            transpose_adj[v].push_back(u);
+    vis[node] = true;
+    for (auto &&neighbour : adj[node])
+    {
+        if (!vis[neighbour])
+            dfs1(neighbour, vis, adj, s);
+    }
+    s.push(node);
 }
 
-stack<int> s;
-void dfs(vector<int> adj[], bool *visited, int u)
+void dfs2(int node, vector<bool> &vis, vector<vector<int>> &adj2)
 {
-    // marking the current node as visited.
-    visited[u] = true;
-
-    // iterating over adjacent vertices and calling function
-    // recursively if any adjacent vertex is not visited.
-    for (auto v : adj[u])
+    vis[node] = true;
+    for (auto &&neighbour : adj2[node])
     {
-        if (visited[v] == 0)
-            dfs(adj, visited, v);
+        if (!vis[neighbour])
+            dfs2(neighbour, vis, adj2);
     }
 }
 
-void fillorder(vector<vector<int>> &adj, bool *visited, int u)
-{
-    // marking the current node as visited.
-    visited[u] = true;
-
-    // iterating over adjacent vertices and calling function
-    // recursively if any adjacent vertex is not visited.
-    for (auto v : adj[u])
-        if (visited[v] == 0)
-            fillorder(adj, visited, v);
-
-    // pushing vertex into the stack.
-    s.push(u);
-}
-
-// Function to find number of strongly connected components in the graph.
 int kosaraju(int V, vector<vector<int>> &adj)
 {
-    // using boolean list to mark visited nodes and currently
-    // marking all the nodes as false.
-    bool visited[V];
-    memset(visited, 0, sizeof(visited));
-
-    // filling vertices in stack according to their finishing times.
+    // Step1: Find topo sort (need)
+    vector<bool> vis(V, false);
+    stack<int> s;
     for (int i = 0; i < V; i++)
-        if (visited[i] == false)
-            fillorder(adj, visited, i);
+    {
+        if (!vis[i])
+            dfs1(i, vis, adj, s);
+    }
 
-    // creating transpose of adjacency list.
-    vector<int> transpose_adj[V];
-    transpose(V, adj, transpose_adj);
-
-    // marking all the nodes as not visited again.
+    // Step2: Transpose the graph
+    vector<vector<int>> adj2(V);
     for (int i = 0; i < V; i++)
-        visited[i] = false;
+    {
+        for (auto &&j : adj[i])
+            adj2[j].push_back(i);
+    }
 
-    int ans = 0;
+    // Step3: Implement dfs on transpose graph
+    for (int i = 0; i < V; i++)
+        vis[i] = false;
 
-    // now processing all vertices in order defined by stack.
+    int cnt = 0;
     while (!s.empty())
     {
-        // popping a vertex from stack.
-        int temp = s.top();
-        s.pop();
-
-        // if vertex is not visited, we call dfs function
-        // and increment the counter.
-        if (!visited[temp])
+        if (!vis[s.top()])
         {
-            dfs(transpose_adj, visited, temp);
-            ans++;
+            cnt++;
+            dfs2(s.top(), vis, adj2);
         }
+        s.pop();
     }
-    // returning the count.
-    return ans;
+    return cnt;
 }
 
 int main()
