@@ -7,7 +7,6 @@ using namespace std;
 int findTheCity(int n, vector<vector<int>> &edges, int distanceThreshold)
 {
     vector<vector<int>> dis(n, vector<int>(n, INT_MAX));
-    int res = 0, smallest = n;
 
     for (auto &e : edges)
         dis[e[0]][e[1]] = dis[e[1]][e[0]] = e[2];
@@ -20,6 +19,7 @@ int findTheCity(int n, vector<vector<int>> &edges, int distanceThreshold)
             for (int j = 0; j < n; ++j)
                 dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
 
+    int res = 0, smallest = n;
     for (int i = 0; i < n; i++)
     {
         int count = 0;
