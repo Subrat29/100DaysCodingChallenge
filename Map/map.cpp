@@ -26,12 +26,18 @@ int main()
     int size = mp.size();
     cout << "Size: " << size << endl;
 
-    // finding element
+    // Method-1: finding element
     auto it = mp.find('b');
     if (it == mp.end())
         cout << "Not Found" << endl;
     else
         cout << "Found" << endl;
+
+    // Method-2: finding element
+    if (mp.count('b'))
+        cout << "Found" << endl;
+    else
+        cout << "Not Found" << endl;
 
     // Traverse a map
     for (auto &&pair : mp)
