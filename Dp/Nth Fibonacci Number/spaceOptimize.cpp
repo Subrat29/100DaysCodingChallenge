@@ -3,6 +3,9 @@
 #include <algorithm>
 using namespace std;
 
+// sc: 1
+// tc: n
+
 int fibo(int n)
 {
     // base case
@@ -16,6 +19,8 @@ int fibo(int n)
     }
     return y;
 }
+
+// 0 1 1 2 3 5 8 13 21
 
 int main()
 {
